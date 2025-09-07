@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能登分系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap"></i> 智能登分系统</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showSection('exam-config')">试卷配置</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('scoring')">登分</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('statistics')">统计</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="help.html" target="_blank">帮助</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- 试卷配置区域 -->
+        <div id="exam-config" class="section active">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-cog"></i> 试卷结构配置</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="exam-form">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">科目名称</label>
+                                        <input type="text" class="form-control" id="subject" placeholder="例：数学"
+                                            required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">考试名称</label>
+                                        <input type="text" class="form-control" id="exam-name" placeholder="例：期末考试"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">总分</label>
+                                        <input type="number" class="form-control" id="total-score" placeholder="100"
+                                            required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">考试班级</label>
+                                        <input type="text" class="form-control" id="class-name" placeholder="例：高一(1)班"
+                                            required>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5>题目结构</h5>
+                                <button class="btn btn-outline-primary" onclick="addQuestion()">
+                                    <i class="fas fa-plus"></i> 添加题目
+                                </button>
+                            </div>
+
+                            <div id="questions-container">
+                                <!-- 动态添加的题目 -->
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="button" class="btn btn-success" onclick="saveExamConfig()">
+                                    <i class="fas fa-save"></i> 保存配置
+                                </button>
+                                <button type="button" class="btn btn-info" onclick="loadTemplate()">
+                                    <i class="fas fa-download"></i> 加载模板
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>快速模板</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-secondary" onclick="loadQuickTemplate('math')">
+                                    数学模板 (选择+填空+解答)
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="loadQuickTemplate('chinese')">
+                                    语文模板 (基础+阅读+作文)
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="loadQuickTemplate('english')">
+                                    英语模板 (听力+选择+作文)
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="loadQuickTemplate('science')">
+                                    理科模板 (选择+实验+计算)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5>预览</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="exam-preview">
+                                <p class="text-muted">配置完成后将在此显示预览</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 登分区域 -->
+        <div id="scoring" class="section">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4><i class="fas fa-edit"></i> 成绩登记</h4>
+                            <div>
+                                <button class="btn btn-sm btn-outline-info" onclick="showBatchInput()">
+                                    <i class="fas fa-users"></i> 批量录入
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" onclick="importFromExcel()">
+                                    <i class="fas fa-file-excel"></i> 从Excel导入
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">学生姓名</label>
+                                    <input type="text" class="form-control" id="student-name" placeholder="输入学生姓名">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">学号</label>
+                                    <input type="text" class="form-control" id="student-id" placeholder="学号（可选）">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">座位号</label>
+                                    <input type="text" class="form-control" id="seat-number" placeholder="座位号（可选）">
+                                </div>
+                            </div>
+
+                            <div id="scoring-form">
+                                <!-- 根据试卷配置动态生成登分表单 -->
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-md-8">
+                                    <div class="d-flex gap-2 flex-wrap">
+                                        <button type="button" class="btn btn-primary" onclick="saveScore()">
+                                            <i class="fas fa-save"></i> 保存成绩
+                                        </button>
+                                        <button type="button" class="btn btn-warning" onclick="clearForm()">
+                                            <i class="fas fa-eraser"></i> 清空表单
+                                        </button>
+                                        <button type="button" class="btn btn-info" onclick="calculateTotal()">
+                                            <i class="fas fa-calculator"></i> 计算总分
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-end">
+                                        <h5>总分: <span id="current-total" class="text-primary">0</span></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 快捷操作面板 -->
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-magic"></i> 快捷操作</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button class="btn btn-outline-primary w-100 mb-2" onclick="quickFill('full')">
+                                        <i class="fas fa-star"></i><br>满分
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-outline-warning w-100 mb-2" onclick="quickFill('half')">
+                                        <i class="fas fa-star-half-alt"></i><br>半分
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-outline-danger w-100 mb-2" onclick="quickFill('zero')">
+                                        <i class="fas fa-times"></i><br>零分
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-outline-secondary w-100 mb-2" onclick="quickFill('absent')">
+                                        <i class="fas fa-user-times"></i><br>缺考
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>当前考试信息</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="current-exam-info">
+                                <p class="text-muted">请先配置试卷结构</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">已录入学生</h5>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown">
+                                    <i class="fas fa-cogs"></i> 管理
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" onclick="showClassifyModal()">
+                                            <i class="fas fa-layer-group"></i> 学生分班
+                                        </a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item text-warning" href="#" onclick="clearAllStudents()">
+                                            <i class="fas fa-eraser"></i> 清除所有学生
+                                        </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="students-list" style="max-height: 300px; overflow-y: auto;">
+                                <!-- 动态显示已录入的学生列表 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 统计区域 -->
+        <div id="statistics" class="section">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <h4 class="mb-0 me-3"><i class="fas fa-chart-bar"></i> 成绩统计</h4>
+                                <select class="form-select form-select-sm" id="class-filter" onchange="filterByClass()"
+                                    style="width: auto;">
+                                    <option value="">全部班级</option>
+                                    <!-- 动态生成班级选项 -->
+                                </select>
+                            </div>
+                            <div>
+                                <button class="btn btn-success" onclick="exportToExcel()">
+                                    <i class="fas fa-download"></i> 导出Excel
+                                </button>
+                                <button class="btn btn-info" onclick="printReport()">
+                                    <i class="fas fa-print"></i> 打印报表
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-3">
+                                    <div class="stat-card bg-primary text-white p-3 rounded">
+                                        <h6>总人数</h6>
+                                        <h3 id="total-students">0</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stat-card bg-success text-white p-3 rounded">
+                                        <h6>平均分</h6>
+                                        <h3 id="average-score">0</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stat-card bg-warning text-white p-3 rounded">
+                                        <h6>最高分</h6>
+                                        <h3 id="max-score">0</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stat-card bg-danger text-white p-3 rounded">
+                                        <h6>最低分</h6>
+                                        <h3 id="min-score">0</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="scores-table">
+                                    <thead class="table-dark">
+                                        <tr id="table-header">
+                                            <!-- 动态生成表头 -->
+                                        </tr>
+                                    </thead>
+                                    <tbody id="scores-tbody">
+                                        <!-- 动态显示成绩数据 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>分数段分布</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="scoreChart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5>各题得分率</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="question-stats">
+                                <!-- 动态显示各题统计 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 批量录入模态框 -->
+    <div class="modal fade" id="batchInputModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">批量录入学生名单</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">学生名单（每行一个学生，格式：姓名 学号 座位号）</label>
+                        <textarea class="form-control" id="batch-students" rows="10"
+                            placeholder="张三 2021001 1&#10;李四 2021002 2&#10;王五 2021003 3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="processBatchInput()">导入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 学生分班模态框 -->
+    <div class="modal fade" id="classifyModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">学生分班管理</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">分班操作</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">新建班级</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="new-class-name"
+                                                placeholder="输入班级名称">
+                                            <button class="btn btn-outline-primary" onclick="createNewClass()">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">快速分班</label>
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-outline-info btn-sm" onclick="autoClassify('score')">
+                                                <i class="fas fa-sort-numeric-down"></i> 按成绩分班
+                                            </button>
+                                            <button class="btn btn-outline-info btn-sm"
+                                                onclick="autoClassify('random')">
+                                                <i class="fas fa-random"></i> 随机分班
+                                            </button>
+                                            <button class="btn btn-outline-info btn-sm" onclick="autoClassify('name')">
+                                                <i class="fas fa-sort-alpha-down"></i> 按姓名分班
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">批量操作</label>
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-outline-success btn-sm"
+                                                onclick="selectAllStudents()">
+                                                <i class="fas fa-check-double"></i> 全选
+                                            </button>
+                                            <button class="btn btn-outline-secondary btn-sm" onclick="clearSelection()">
+                                                <i class="fas fa-times"></i> 清除选择
+                                            </button>
+                                            <button class="btn btn-outline-warning btn-sm" onclick="moveSelected()">
+                                                <i class="fas fa-arrow-right"></i> 移动选中
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="row" id="class-columns">
+                                <!-- 动态生成班级列 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-success" onclick="saveClassification()">保存分班</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+    <script src="demo.js"></script>
+</body>
+
+</html>

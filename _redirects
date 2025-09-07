@@ -1,0 +1,6 @@
+# 单页应用路由重定向
+/*    /index.html   200
+
+# 常用重定向
+/docs  /help.html  302
+/guide /help.html  302

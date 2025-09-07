@@ -1,0 +1,32 @@
+{
+    "subject": "高中数学",
+    "examName": "期末考试",
+    "className": "高一(1)班",
+    "totalScore": 150,
+    "questions": [
+        {
+            "type": "choice",
+            "count": 12,
+            "score": 5,
+            "description": "单选题"
+        },
+        {
+            "type": "blank",
+            "count": 4,
+            "score": 5,
+            "description": "填空题"
+        },
+        {
+            "type": "short",
+            "count": 6,
+            "score": 12,
+            "description": "解答题"
+        },
+        {
+            "type": "essay",
+            "count": 1,
+            "score": 18,
+            "description": "压轴题"
+        }
+    ]
+}

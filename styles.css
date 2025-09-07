@@ -1,0 +1,553 @@
+/* 全局样式 */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* 区域切换 */
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* 卡片样式增强 */
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 2px solid #e9ecef;
+    font-weight: 600;
+}
+
+/* 题目卡片 */
+.question-card {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+}
+
+.question-card:hover {
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+/* 选择题评分按钮 */
+.choice-scoring {
+    margin-top: 0.5rem;
+}
+
+.choice-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.choice-buttons label {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: 2px solid #dee2e6;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    margin: 0;
+}
+
+.choice-buttons input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+.choice-buttons label:hover {
+    border-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.choice-buttons input[type="radio"]:checked+.choice-label {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.choice-correct {
+    color: #28a745;
+    border-color: #28a745 !important;
+}
+
+.choice-correct:hover {
+    border-color: #1e7e34 !important;
+    background-color: rgba(40, 167, 69, 0.1) !important;
+}
+
+.choice-correct input[type="radio"]:checked+.choice-label {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.choice-wrong {
+    color: #dc3545;
+    border-color: #dc3545 !important;
+}
+
+.choice-wrong:hover {
+    border-color: #c82333 !important;
+    background-color: rgba(220, 53, 69, 0.1) !important;
+}
+
+.choice-wrong input[type="radio"]:checked+.choice-label {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+/* 分步评分界面 */
+.detailed-scoring {
+    margin-top: 0.5rem;
+}
+
+.step-scoring {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 0.375rem;
+}
+
+.step-label {
+    font-weight: 500;
+    min-width: 80px;
+}
+
+.breakdown-input {
+    width: 80px;
+    text-align: center;
+}
+
+.step-max-score {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.detailed-total {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #e7f3ff;
+    border: 1px solid #b3d4fc;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.question-number {
+    background: #007bff;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* 统计卡片 */
+.stat-card {
+    transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+/* 登分表单 */
+.score-input {
+    max-width: 80px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.score-input:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* 快捷按钮 */
+.quick-btn {
+    transition: all 0.2s ease;
+}
+
+.quick-btn:hover {
+    transform: scale(1.05);
+}
+
+/* 学生列表 */
+.student-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.student-item:hover {
+    background-color: #f8f9fa;
+}
+
+.student-item.selected {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2196f3;
+}
+
+/* 表格样式 */
+.table th {
+    border-top: none;
+    font-weight: 600;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .card-body {
+        padding: 1rem 0.75rem;
+    }
+
+    .btn-group-sm .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* 动画效果 */
+.fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 成功/错误提示 */
+.alert {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.alert-success {
+    background-color: #d1edff;
+    color: #0c5460;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* 加载状态 */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* 导出按钮样式 */
+.export-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.export-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* 分数输入框特殊样式 */
+.score-group {
+    background: white;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+    margin-bottom: 0.5rem;
+}
+
+.score-group:focus-within {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* 题目类型标签 */
+.question-type-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* 总分显示 */
+#current-total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 打印样式 */
+@media print {
+
+    .navbar,
+    .btn,
+    .card-header button {
+        display: none !important;
+    }
+
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #dee2e6 !important;
+    }
+
+    body {
+        background: white !important;
+    }
+}
+
+/* 快速模板按钮样式 */
+.template-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.template-buttons .btn {
+    border-radius: 1.5rem;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    border-width: 2px;
+}
+
+.template-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.template-buttons .btn-outline-primary:hover {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-color: #0056b3;
+}
+
+.template-buttons .btn-outline-success:hover {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    border-color: #1e7e34;
+}
+
+.template-buttons .btn-outline-info:hover {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    border-color: #138496;
+}
+
+.template-buttons .btn-outline-warning:hover {
+    background: linear-gradient(135deg, #ffc107, #e0a800);
+    border-color: #e0a800;
+}
+
+.template-buttons .btn-outline-secondary:hover {
+    background: linear-gradient(135deg, #6c757d, #545b62);
+    border-color: #545b62;
+}
+
+/* 模板提示区域 */
+.alert-info {
+    background: linear-gradient(135deg, #d1ecf1, #b8daff);
+    border: none;
+    border-left: 4px solid #17a2b8;
+}
+
+/* 班级管理拖拽样式 */
+.class-column {
+    min-height: 150px;
+    border: 2px dashed #dee2e6;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.class-column:hover {
+    border-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+.class-column.drag-over {
+    border-color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+    transform: scale(1.02);
+}
+
+.student-drag-item {
+    cursor: move;
+    transition: all 0.2s ease;
+    margin-bottom: 0.5rem;
+}
+
+.student-drag-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.student-drag-item.dragging {
+    opacity: 0.5;
+    transform: rotate(5deg);
+}
+
+/* 删除按钮样式 */
+.delete-btn {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.student-drag-item:hover .delete-btn,
+.class-column:hover .delete-btn {
+    opacity: 1;
+}
+
+/* 分班功能样式 */
+.student-classify-item {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 0.375rem;
+    cursor: move;
+    transition: all 0.2s ease;
+}
+
+.student-classify-item:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.student-classify-item:active {
+    transform: scale(0.98);
+}
+
+.class-column {
+    min-height: 300px;
+}
+
+.class-students {
+    min-height: 150px;
+    background: #fafafa;
+    border-radius: 0.375rem;
+}
+
+.class-students:empty::before {
+    content: "拖拽学生到此处";
+    color: #6c757d;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 150px;
+}
+
+/* 拖拽状态 */
+.dragging {
+    opacity: 0.5;
+    transform: rotate(2deg);
+}
+
+.drag-over {
+    border: 2px dashed #007bff;
+    background: #f0f8ff;
+}
+
+/* 学生项目复选框样式 */
+.student-classify-item .form-check {
+    margin-bottom: 0;
+}
+
+.student-classify-item .form-check-input {
+    margin-top: 0.125rem;
+}
+
+.student-classify-item .form-check-label {
+    width: 100%;
+    cursor: move;
+}
+
+/* 班级标签样式 */
+.badge.bg-secondary {
+    background-color: #6c757d !important;
+}
+
+/* 动画效果 */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.class-column {
+    animation: slideIn 0.3s ease;
+}
+
+/* 模态框样式优化 */
+.modal-xl .modal-content {
+    max-height: 90vh;
+}
+
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}

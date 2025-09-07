@@ -1,0 +1,40 @@
+{
+    "name": "zenink",
+    "version": "1.0.0",
+    "description": "ZenInk - 智能阅卷系统，专为教师设计的Web端成绩录入和分析工具",
+    "main": "index.html",
+    "scripts": {
+        "start": "python -m http.server 8000",
+        "dev": "python -m http.server 8000",
+        "serve": "npx serve .",
+        "build": "echo 'No build step required'",
+        "deploy": "echo 'Deploy to GitHub Pages'"
+    },
+    "keywords": [
+        "education",
+        "grading",
+        "scoring",
+        "teacher-tools",
+        "web-app",
+        "exam-management",
+        "student-data",
+        "javascript",
+        "bootstrap",
+        "zenink"
+    ],
+    "author": "ZenInk Team",
+    "license": "MIT",
+    "homepage": "https://github.com/yourusername/zenink#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/yourusername/zenink.git"
+    },
+    "bugs": {
+        "url": "https://github.com/yourusername/zenink/issues"
+    },
+    "dependencies": {},
+    "devDependencies": {},
+    "engines": {
+        "node": ">=12.0.0"
+    }
+}

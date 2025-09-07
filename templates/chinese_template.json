@@ -1,0 +1,44 @@
+{
+    "subject": "语文",
+    "examName": "期末考试",
+    "className": "高一(2)班",
+    "totalScore": 150,
+    "questions": [
+        {
+            "type": "choice",
+            "count": 15,
+            "score": 3,
+            "description": "基础知识选择题"
+        },
+        {
+            "type": "blank",
+            "count": 5,
+            "score": 3,
+            "description": "基础知识填空题"
+        },
+        {
+            "type": "short",
+            "count": 4,
+            "score": 8,
+            "description": "阅读理解"
+        },
+        {
+            "type": "short",
+            "count": 2,
+            "score": 10,
+            "description": "文言文阅读"
+        },
+        {
+            "type": "short",
+            "count": 1,
+            "score": 15,
+            "description": "诗歌鉴赏"
+        },
+        {
+            "type": "essay",
+            "count": 1,
+            "score": 60,
+            "description": "作文"
+        }
+    ]
+}
