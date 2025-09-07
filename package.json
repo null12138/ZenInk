@@ -24,13 +24,13 @@
     ],
     "author": "ZenInk Team",
     "license": "MIT",
-    "homepage": "https://github.com/yourusername/zenink#readme",
+    "homepage": "https://github.com/null12138/ZenInk#readme",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/yourusername/zenink.git"
+        "url": "git+https://github.com/null12138/ZenInk.git"
     },
     "bugs": {
-        "url": "https://github.com/yourusername/zenink/issues"
+        "url": "https://github.com/null12138/ZenInk/issues"
     },
     "dependencies": {},
     "devDependencies": {},

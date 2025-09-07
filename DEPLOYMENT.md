@@ -1,27 +1,34 @@
-# 智能登分系统部署指南
+# ZenInk - Cloudflare Pages 部署指南
 
-本指南将帮助您将智能登分系统部署到 Cloudflare Pages。
+本指南将帮助您将 ZenInk 智能阅卷系统部署到 Cloudflare Pages。
 
-## 部署方式
+## 🚀 快速部署
 
-### 方式一：Git 仓库部署（推荐）
+### GitHub 集成部署（推荐）
 
-1. **创建 Git 仓库**
-   - 在 GitHub 上创建一个新仓库
-   - 将项目文件上传到仓库
+项目已上传到：**https://github.com/null12138/ZenInk**
 
-2. **连接 Cloudflare Pages**
-   - 登录 Cloudflare Dashboard
+1. **登录 Cloudflare Dashboard**
+   - 访问 [Cloudflare Dashboard](https://dash.cloudflare.com/)
    - 进入 Pages 部分
-   - 点击"创建项目" → "连接到Git"
-   - 选择您的 GitHub 仓库
 
-3. **配置构建设置**
-   - 项目名称：选择一个域名友好的名称
-   - 生产分支：`main` 或 `master`
-   - 构建命令：留空
-   - 构建输出目录：留空
-   - 环境变量：无需配置
+2. **创建新项目**
+   - 点击 "Create a project"
+   - 选择 "Connect to Git"
+   - 授权 GitHub 访问
+
+3. **选择仓库**
+   - 选择 `null12138/ZenInk` 仓库
+   - 选择 `main` 分支
+
+4. **构建设置**
+   ```
+   项目名称: zenink (或自定义)
+   生产分支: main
+   构建命令: (留空)
+   构建输出目录: /
+   根目录: /
+   ```
 
 4. **部署**
    - 点击"保存并部署"
