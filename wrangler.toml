@@ -1,0 +1,20 @@
+# Wrangler configuration for ZenInk
+# This file configures deployment to Cloudflare Pages
+
+name = "zenink"
+main = "./index.html"
+compatibility_date = "2025-01-01"
+
+# Pages configuration
+pages_build_output_dir = "./"
+
+# Asset handling
+[site]
+bucket = "./"
+
+# Environment variables (optional)
+[env.production]
+name = "zenink"
+
+[env.preview]
+name = "zenink-preview"
