@@ -1,6 +1,7 @@
-# 单页应用路由重定向
-/*    /index.html   200
+# 帮助页面重定向
+/docs     /help.html    302
+/guide    /help.html    302
+/help     /help.html    302
 
-# 常用重定向
-/docs  /help.html  302
-/guide /help.html  302
+# 根路径确保指向首页
+/         /index.html   200
