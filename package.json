@@ -8,8 +8,7 @@
         "dev": "python -m http.server 8000",
         "serve": "npx serve .",
         "build": "echo 'Static site - no build required'",
-        "deploy": "wrangler pages deploy . --project-name=zenink",
-        "deploy:preview": "wrangler pages deploy . --project-name=zenink --env=preview"
+        "deploy": "echo 'Deploy via Cloudflare Pages GitHub integration'"
     },
     "keywords": [
         "education",
