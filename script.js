@@ -9,10 +9,10 @@ let autosaveTimer = null;
 // 现代化页面初始化
 document.addEventListener('DOMContentLoaded', function () {
     console.log('🎓 ZenInk 智能登分系统启动中...');
-    
+
     // 显示启动动画
     showLoadingOverlay();
-    
+
     // 模拟系统初始化
     setTimeout(() => {
         // 加载保存的配置
@@ -28,13 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 初始化UI增强效果
         initializeUIEnhancements();
-        
+
         // 初始化现代化功能
         initializeModernFeatures();
-        
+
         // 隐藏加载动画
         hideLoadingOverlay();
-        
+
         console.log('✅ 系统初始化完成');
     }, 1200);
 });
@@ -62,19 +62,19 @@ function initializeUIEnhancements() {
         input.addEventListener('blur', function () {
             this.parentElement.classList.remove('input-focused');
         });
-        
+
         // 添加输入验证视觉反馈
-        input.addEventListener('input', function() {
+        input.addEventListener('input', function () {
             validateInput(this);
         });
     });
 
     // 初始化进度条动画
     updateConfigProgress();
-    
+
     // 初始化导航栏滚动效果
     initializeNavbarEffects();
-    
+
     // 初始化卡片悬浮效果
     initializeCardEffects();
 }
@@ -83,16 +83,16 @@ function initializeUIEnhancements() {
 function initializeModernFeatures() {
     // 初始化自动保存
     initializeAutoSave();
-    
+
     // 初始化快捷键
     initializeKeyboardShortcuts();
-    
+
     // 初始化通知系统
     initializeNotificationSystem();
-    
+
     // 初始化主题检测
     initializeThemeDetection();
-    
+
     // 初始化性能监控
     initializePerformanceMonitoring();
 }
@@ -101,12 +101,12 @@ function initializeModernFeatures() {
 function addModernClickEffect(button) {
     button.style.transform = 'scale(0.95)';
     button.classList.add('loading');
-    
+
     setTimeout(() => {
         button.style.transform = '';
         button.classList.remove('loading');
     }, 200);
-    
+
     // 添加涟漪效果
     const ripple = document.createElement('div');
     ripple.className = 'ripple-effect';
@@ -118,17 +118,17 @@ function addModernClickEffect(button) {
         animation: ripple 0.6s linear;
         pointer-events: none;
     `;
-    
+
     const rect = button.getBoundingClientRect();
     const size = Math.max(rect.height, rect.width);
     ripple.style.width = ripple.style.height = size + 'px';
     ripple.style.left = (rect.width / 2 - size / 2) + 'px';
     ripple.style.top = (rect.height / 2 - size / 2) + 'px';
-    
+
     button.style.position = 'relative';
     button.style.overflow = 'hidden';
     button.appendChild(ripple);
-    
+
     setTimeout(() => {
         ripple.remove();
     }, 600);
@@ -138,7 +138,7 @@ function addModernClickEffect(button) {
 function addInputFocusEffect(input) {
     input.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
     input.style.transform = 'translateY(-2px) scale(1.01)';
-    
+
     setTimeout(() => {
         input.style.transform = '';
     }, 300);
@@ -147,7 +147,7 @@ function addInputFocusEffect(input) {
 // 输入验证视觉反馈
 function validateInput(input) {
     const value = input.value.trim();
-    
+
     if (input.required && !value) {
         input.classList.add('is-invalid');
         input.classList.remove('is-valid');
@@ -157,7 +157,7 @@ function validateInput(input) {
     } else {
         input.classList.remove('is-invalid', 'is-valid');
     }
-    
+
     // 触发进度更新
     updateConfigProgress();
 }
@@ -165,24 +165,24 @@ function validateInput(input) {
 // 导航栏滚动效果
 function initializeNavbarEffects() {
     let lastScrollY = window.scrollY;
-    
+
     window.addEventListener('scroll', () => {
         const navbar = document.querySelector('.navbar');
         const currentScrollY = window.scrollY;
-        
+
         if (currentScrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-        
+
         // 添加滚动方向检测
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
             navbar.style.transform = 'translateY(-100%)';
         } else {
             navbar.style.transform = 'translateY(0)';
         }
-        
+
         lastScrollY = currentScrollY;
     });
 }
@@ -190,12 +190,12 @@ function initializeNavbarEffects() {
 // 卡片悬浮效果初始化
 function initializeCardEffects() {
     const cards = document.querySelectorAll('.card');
-    
+
     cards.forEach(card => {
         card.addEventListener('mouseenter', () => {
             card.style.willChange = 'transform';
         });
-        
+
         card.addEventListener('mouseleave', () => {
             card.style.willChange = 'auto';
         });
@@ -205,7 +205,7 @@ function initializeCardEffects() {
 // 加载覆盖层显示/隐藏
 function showLoadingOverlay(message = '加载中...') {
     let overlay = document.getElementById('loading-overlay');
-    
+
     if (!overlay) {
         overlay = document.createElement('div');
         overlay.id = 'loading-overlay';
@@ -218,7 +218,7 @@ function showLoadingOverlay(message = '加载中...') {
         `;
         document.body.appendChild(overlay);
     }
-    
+
     overlay.classList.add('show');
     document.body.style.overflow = 'hidden';
 }
@@ -251,7 +251,7 @@ function autoSaveConfig() {
             ...formData,
             timestamp: new Date().toISOString()
         }));
-        
+
         showNotification('配置已自动保存', 'success', 2000);
     } catch (error) {
         console.warn('自动保存失败:', error);
@@ -266,19 +266,19 @@ function initializeKeyboardShortcuts() {
             e.preventDefault();
             saveExamConfig();
         }
-        
+
         // Ctrl/Cmd + N: 添加题目
         if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
             e.preventDefault();
             addQuestion();
         }
-        
+
         // Ctrl/Cmd + E: 导出Excel
         if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
             e.preventDefault();
             exportToExcel();
         }
-        
+
         // ESC: 关闭模态框
         if (e.key === 'Escape') {
             const modals = document.querySelectorAll('.modal.show');
@@ -310,7 +310,7 @@ function initializeNotificationSystem() {
 function showNotification(message, type = 'info', duration = 4000) {
     const container = document.getElementById('notification-container');
     if (!container) return;
-    
+
     const notification = document.createElement('div');
     notification.className = `alert alert-${type} alert-dismissible fade show notification-item`;
     notification.style.cssText = `
@@ -320,7 +320,7 @@ function showNotification(message, type = 'info', duration = 4000) {
         border-radius: 8px;
         animation: slideInRight 0.3s ease-out;
     `;
-    
+
     notification.innerHTML = `
         <div class="d-flex align-items-center">
             <i class="fas fa-${getNotificationIcon(type)} me-2"></i>
@@ -328,9 +328,9 @@ function showNotification(message, type = 'info', duration = 4000) {
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     `;
-    
+
     container.appendChild(notification);
-    
+
     if (duration > 0) {
         setTimeout(() => {
             notification.classList.add('fade');
@@ -357,12 +357,12 @@ function getNotificationIcon(type) {
 // 主题检测
 function initializeThemeDetection() {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     function handleThemeChange(e) {
         document.body.classList.toggle('dark-theme', e.matches);
         showNotification(`已切换到${e.matches ? '深色' : '浅色'}主题`, 'info', 2000);
     }
-    
+
     prefersDark.addEventListener('change', handleThemeChange);
     handleThemeChange(prefersDark);
 }
@@ -373,7 +373,7 @@ function initializePerformanceMonitoring() {
         window.addEventListener('load', () => {
             const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
             console.log(`📊 页面加载时间: ${loadTime}ms`);
-            
+
             if (loadTime > 3000) {
                 console.warn('⚠️ 页面加载较慢，建议优化');
             }
@@ -487,62 +487,405 @@ function addQuestion() {
     const container = document.getElementById('questions-container');
 
     const questionCard = document.createElement('div');
-    questionCard.className = 'question-card fade-in';
+    questionCard.className = 'question-card modern-card fade-in';
+    questionCard.setAttribute('data-question-id', questionCount);
     questionCard.innerHTML = `
-        <div class="question-header">
+        <div class="question-header" onclick="toggleQuestionCard(this)">
             <div class="d-flex align-items-center">
-                <span class="question-number">${questionCount}</span>
-                <span class="ms-2 fw-bold">第${questionCount}题</span>
+                <div class="question-number">${questionCount}</div>
+                <div class="question-title">
+                    <span class="fw-bold">第${questionCount}题</span>
+                    <small class="question-summary text-muted"></small>
+                </div>
+                <div class="question-toggle-icon">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
             </div>
-            <button class="btn btn-sm btn-outline-danger" onclick="removeQuestion(this)">
-                <i class="fas fa-trash"></i>
-            </button>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-4">
-                <label class="form-label">题目类型</label>
-                <select class="form-control question-type" onchange="updatePreview()">
-                    <option value="choice">选择题</option>
-                    <option value="blank">填空题</option>
-                    <option value="short">简答题</option>
-                    <option value="essay">大题/作文</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">题目数量</label>
-                <input type="number" class="form-control question-count" value="1" min="1" max="50" onchange="updatePreview()">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">每题分数</label>
-                <input type="number" class="form-control question-score" value="5" min="0.5" step="0.5" onchange="updatePreview()">
+            <div class="question-actions">
+                <button class="btn btn-sm btn-outline-secondary" onclick="duplicateQuestion(this, event)" title="复制题目">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="removeQuestion(this, event)" title="删除题目">
+                    <i class="fas fa-trash"></i>
+                </button>
             </div>
         </div>
         
-        <div class="row mt-2">
-            <div class="col-md-6">
-                <label class="form-label">题目描述（可选）</label>
-                <input type="text" class="form-control question-desc" placeholder="例：单选题、多选题等">
-            </div>
-            <div class="col-md-6">
-                <div class="mt-4 pt-2">
-                    <span class="badge bg-info question-total">小计：5分</span>
+        <div class="question-content">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">题目类型</label>
+                            <select class="form-control question-type" onchange="updateQuestionType(this)">
+                                <option value="choice">选择题</option>
+                                <option value="multiple">多选题</option>
+                                <option value="blank">填空题</option>
+                                <option value="short">简答题</option>
+                                <option value="essay">大题/作文</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">题目数量</label>
+                            <input type="number" class="form-control question-count" value="1" min="1" max="50" onchange="updateQuestionPreview(this)">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">每题分数</label>
+                            <input type="number" class="form-control question-score" value="5" min="0.5" step="0.5" onchange="updateQuestionPreview(this)">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">题目起始序号</label>
+                            <input type="number" class="form-control question-start" value="1" min="1" onchange="updateQuestionPreview(this)">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">题目描述（可选）</label>
+                        <input type="text" class="form-control question-desc" placeholder="例：单选题、多选题等" onchange="updateQuestionPreview(this)">
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <!-- 选择题特殊配置 -->
+                    <div class="choice-config" style="display: block;">
+                        <div class="mb-3">
+                            <label class="form-label">选项设置</label>
+                            <div class="choice-options">
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label class="form-label small">选项数量</label>
+                                        <select class="form-control form-control-sm choice-count" onchange="updateChoiceOptions(this)">
+                                            <option value="2">A-B (2个选项)</option>
+                                            <option value="3">A-C (3个选项)</option>
+                                            <option value="4" selected>A-D (4个选项)</option>
+                                            <option value="5">A-E (5个选项)</option>
+                                            <option value="6">A-F (6个选项)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small">评分方式</label>
+                                        <select class="form-control form-control-sm choice-scoring">
+                                            <option value="all">全对才得分</option>
+                                            <option value="partial">部分分数</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="choice-answers">
+                                    <label class="form-label small">答案设置 (选择题批量设置)</label>
+                                    <div class="answer-pattern-buttons mb-2">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setAnswerPattern(this, 'A')">全选A</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setAnswerPattern(this, 'B')">全选B</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setAnswerPattern(this, 'C')">全选C</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setAnswerPattern(this, 'D')">全选D</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setAnswerPattern(this, 'random')">随机</button>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="showAnswerDetail(this)">详细设置</button>
+                                    </div>
+                                    <div class="answer-preview">
+                                        <small class="text-muted">答案预览：A A A A A...</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 题目统计信息 -->
+                    <div class="question-stats">
+                        <div class="stats-card">
+                            <div class="stats-item">
+                                <span class="stats-label">总题数</span>
+                                <span class="stats-value question-total-count">1</span>
+                            </div>
+                            <div class="stats-item">
+                                <span class="stats-label">小计分数</span>
+                                <span class="stats-value question-total-score">5分</span>
+                            </div>
+                            <div class="stats-item">
+                                <span class="stats-label">平均分</span>
+                                <span class="stats-value question-avg-score">5分</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     `;
 
+    // 添加折叠动画
+    questionCard.style.opacity = '0';
+    questionCard.style.transform = 'translateY(-20px)';
     container.appendChild(questionCard);
+
+    // 触发动画
+    setTimeout(() => {
+        questionCard.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        questionCard.style.opacity = '1';
+        questionCard.style.transform = 'translateY(0)';
+    }, 10);
+
+    updateQuestionPreview(questionCard);
     updatePreview();
 }
 
 // 删除题目
-function removeQuestion(button) {
+function removeQuestion(button, event) {
+    if (event) event.stopPropagation();
+
     if (confirm('确定删除这个题目吗？')) {
-        button.closest('.question-card').remove();
-        renumberQuestions();
-        updatePreview();
+        const questionCard = button.closest('.question-card');
+
+        // 添加删除动画
+        questionCard.style.transition = 'all 0.3s ease';
+        questionCard.style.opacity = '0';
+        questionCard.style.transform = 'translateX(-100%)';
+
+        setTimeout(() => {
+            questionCard.remove();
+            renumberQuestions();
+            updatePreview();
+        }, 300);
     }
+}
+
+// 复制题目
+function duplicateQuestion(button, event) {
+    if (event) event.stopPropagation();
+
+    const questionCard = button.closest('.question-card');
+    const newQuestionCard = questionCard.cloneNode(true);
+
+    // 更新新题目的编号
+    questionCount++;
+    newQuestionCard.setAttribute('data-question-id', questionCount);
+
+    // 更新题目编号显示
+    const questionNumber = newQuestionCard.querySelector('.question-number');
+    const questionTitle = newQuestionCard.querySelector('.question-title span');
+    questionNumber.textContent = questionCount;
+    questionTitle.textContent = `第${questionCount}题`;
+
+    // 插入到当前题目后面
+    questionCard.insertAdjacentElement('afterend', newQuestionCard);
+
+    // 添加出现动画
+    newQuestionCard.style.opacity = '0';
+    newQuestionCard.style.transform = 'scale(0.8)';
+    setTimeout(() => {
+        newQuestionCard.style.transition = 'all 0.3s ease';
+        newQuestionCard.style.opacity = '1';
+        newQuestionCard.style.transform = 'scale(1)';
+    }, 10);
+
+    renumberQuestions();
+    updatePreview();
+    showNotification('题目已复制', 'success');
+}
+
+// 折叠/展开题目卡片
+function toggleQuestionCard(header) {
+    const questionCard = header.closest('.question-card');
+    const content = questionCard.querySelector('.question-content');
+    const icon = header.querySelector('.question-toggle-icon i');
+
+    if (questionCard.classList.contains('collapsed')) {
+        // 展开
+        questionCard.classList.remove('collapsed');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.style.transform = 'rotate(0deg)';
+        content.style.opacity = '1';
+    } else {
+        // 折叠
+        questionCard.classList.add('collapsed');
+        content.style.maxHeight = '0';
+        icon.style.transform = 'rotate(-90deg)';
+        content.style.opacity = '0';
+    }
+}
+
+// 更新题目类型配置
+function updateQuestionType(select) {
+    const questionCard = select.closest('.question-card');
+    const choiceConfig = questionCard.querySelector('.choice-config');
+    const type = select.value;
+
+    // 显示/隐藏选择题特殊配置
+    if (type === 'choice' || type === 'multiple') {
+        choiceConfig.style.display = 'block';
+
+        // 更新评分方式
+        const scoringSelect = questionCard.querySelector('.choice-scoring');
+        if (type === 'multiple') {
+            scoringSelect.innerHTML = `
+                <option value="all">全对才得分</option>
+                <option value="partial">部分分数</option>
+                <option value="each">每选对一项得分</option>
+            `;
+        } else {
+            scoringSelect.innerHTML = `
+                <option value="all">全对才得分</option>
+                <option value="partial">部分分数</option>
+            `;
+        }
+    } else {
+        choiceConfig.style.display = 'none';
+    }
+
+    updateQuestionPreview(questionCard);
+}
+
+// 更新选择题选项
+function updateChoiceOptions(select) {
+    const questionCard = select.closest('.question-card');
+    const count = parseInt(select.value);
+    const answerPreview = questionCard.querySelector('.answer-preview small');
+
+    // 更新答案预览
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const availableOptions = letters.slice(0, count).join('、');
+    answerPreview.textContent = `可用选项：${availableOptions}`;
+
+    updateQuestionPreview(questionCard);
+}
+
+// 设置答案模式
+function setAnswerPattern(button, pattern) {
+    const questionCard = button.closest('.question-card');
+    const countInput = questionCard.querySelector('.question-count');
+    const answerPreview = questionCard.querySelector('.answer-preview small');
+    const questionCount = parseInt(countInput.value);
+
+    let answers = [];
+
+    if (pattern === 'random') {
+        const options = ['A', 'B', 'C', 'D'];
+        for (let i = 0; i < questionCount; i++) {
+            answers.push(options[Math.floor(Math.random() * options.length)]);
+        }
+    } else {
+        answers = new Array(questionCount).fill(pattern);
+    }
+
+    // 存储答案数据
+    questionCard.setAttribute('data-answers', JSON.stringify(answers));
+
+    // 更新预览
+    const preview = answers.slice(0, 10).join(' ') + (answers.length > 10 ? '...' : '');
+    answerPreview.textContent = `答案预览：${preview}`;
+
+    showNotification(`已设置${questionCount}题答案为：${pattern === 'random' ? '随机' : '全' + pattern}`, 'success');
+}
+
+// 显示详细答案设置
+function showAnswerDetail(button) {
+    const questionCard = button.closest('.question-card');
+    const questionCount = parseInt(questionCard.querySelector('.question-count').value);
+
+    // 创建详细设置模态框
+    const modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.innerHTML = `
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modern-modal">
+                <div class="modal-header gradient-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-list me-2"></i>详细答案设置
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="answer-grid">
+                        ${generateAnswerGrid(questionCount)}
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="fillAllAnswers('A')">全填A</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="fillAllAnswers('B')">全填B</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="fillAllAnswers('C')">全填C</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="fillAllAnswers('D')">全填D</button>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="randomizeAllAnswers()">随机填充</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="saveDetailedAnswers()">保存答案</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
+
+    // 模态框关闭时删除元素
+    modal.addEventListener('hidden.bs.modal', () => {
+        modal.remove();
+    });
+
+    // 存储当前题目卡片引用
+    modal.setAttribute('data-question-card', questionCard.getAttribute('data-question-id'));
+}
+
+// 生成答案网格
+function generateAnswerGrid(count) {
+    let html = '<div class="row">';
+    for (let i = 1; i <= count; i++) {
+        html += `
+            <div class="col-md-2 col-sm-3 col-4 mb-2">
+                <label class="form-label small">${i}题</label>
+                <select class="form-control form-control-sm answer-select" data-question="${i}">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+            </div>
+        `;
+
+        if (i % 6 === 0 && i < count) {
+            html += '</div><div class="row">';
+        }
+    }
+    html += '</div>';
+    return html;
+}
+
+// 更新题目预览
+function updateQuestionPreview(element) {
+    const questionCard = typeof element === 'string' ?
+        document.querySelector(`[data-question-id="${element}"]`) :
+        (element.closest ? element.closest('.question-card') : element);
+
+    if (!questionCard) return;
+
+    const type = questionCard.querySelector('.question-type').value;
+    const count = parseInt(questionCard.querySelector('.question-count').value) || 1;
+    const score = parseFloat(questionCard.querySelector('.question-score').value) || 0;
+    const desc = questionCard.querySelector('.question-desc').value.trim();
+    const start = parseInt(questionCard.querySelector('.question-start').value) || 1;
+
+    // 更新统计信息
+    const totalScore = count * score;
+    questionCard.querySelector('.question-total-count').textContent = count;
+    questionCard.querySelector('.question-total-score').textContent = totalScore + '分';
+    questionCard.querySelector('.question-avg-score').textContent = score + '分';
+
+    // 更新题目摘要
+    const typeNames = {
+        'choice': '选择题',
+        'multiple': '多选题',
+        'blank': '填空题',
+        'short': '简答题',
+        'essay': '大题/作文'
+    };
+
+    const summary = questionCard.querySelector('.question-summary');
+    const summaryText = `${typeNames[type]} ${count}题 × ${score}分 = ${totalScore}分${desc ? ' (' + desc + ')' : ''}`;
+    summary.textContent = summaryText;
+
+    updatePreview();
 }
 
 // 重新编号题目
@@ -2927,3 +3270,1329 @@ function collectScoreData() {
 
     return scores;
 }
+
+// === 超现代化增强功能 ===
+
+// 现代化加载覆盖层
+function showLoadingOverlay() {
+    const overlay = document.createElement('div');
+    overlay.id = 'modern-loading-overlay';
+    overlay.className = 'modern-loading-overlay';
+    overlay.innerHTML = `
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>ZenInk</h2>
+                <p>智能阅卷系统</p>
+            </div>
+            <div class="loading-progress">
+                <div class="progress-bar" id="loading-progress-bar"></div>
+            </div>
+            <div class="loading-text" id="loading-text">正在初始化系统...</div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    // 模拟加载进度
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress > 100) progress = 100;
+
+        const progressBar = document.getElementById('loading-progress-bar');
+        const loadingText = document.getElementById('loading-text');
+
+        if (progressBar) progressBar.style.width = progress + '%';
+
+        if (loadingText) {
+            const messages = [
+                '正在初始化系统...',
+                '加载用户界面...',
+                '连接数据存储...',
+                '优化性能...',
+                '准备就绪...'
+            ];
+            loadingText.textContent = messages[Math.floor(progress / 20)] || '准备就绪...';
+        }
+
+        if (progress >= 100) {
+            clearInterval(interval);
+        }
+    }, 100);
+}
+
+function hideLoadingOverlay() {
+    const overlay = document.getElementById('modern-loading-overlay');
+    if (overlay) {
+        overlay.classList.add('fade-out');
+        setTimeout(() => {
+            if (overlay.parentNode) {
+                overlay.parentNode.removeChild(overlay);
+            }
+        }, 500);
+    }
+}
+
+// 超现代化按钮点击效果
+function addModernClickEffect(button) {
+    const rect = button.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'modern-ripple';
+
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (event.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (event.clientY - rect.top - size / 2) + 'px';
+
+    button.appendChild(ripple);
+
+    // 添加按钮动画类
+    button.classList.add('button-clicked');
+
+    setTimeout(() => {
+        if (ripple.parentNode) {
+            ripple.parentNode.removeChild(ripple);
+        }
+        button.classList.remove('button-clicked');
+    }, 600);
+}
+
+// 现代化输入框焦点效果
+function addInputFocusEffect(input) {
+    // 创建焦点指示器
+    const indicator = document.createElement('div');
+    indicator.className = 'input-focus-indicator';
+
+    // 如果不存在则添加
+    if (!input.parentElement.querySelector('.input-focus-indicator')) {
+        input.parentElement.appendChild(indicator);
+
+        // 动画效果
+        setTimeout(() => {
+            indicator.classList.add('active');
+        }, 10);
+
+        // 失焦时移除
+        input.addEventListener('blur', function () {
+            indicator.classList.remove('active');
+            setTimeout(() => {
+                if (indicator.parentNode) {
+                    indicator.parentNode.removeChild(indicator);
+                }
+            }, 300);
+        }, { once: true });
+    }
+}
+
+// 输入验证视觉反馈
+function validateInput(input) {
+    const value = input.value.trim();
+    const parent = input.parentElement;
+
+    // 移除之前的验证类
+    parent.classList.remove('input-valid', 'input-invalid');
+
+    if (input.hasAttribute('required')) {
+        if (value) {
+            parent.classList.add('input-valid');
+            addValidationIcon(parent, 'check', 'success');
+        } else {
+            parent.classList.add('input-invalid');
+            addValidationIcon(parent, 'times', 'error');
+        }
+    } else if (value) {
+        parent.classList.add('input-valid');
+        addValidationIcon(parent, 'check', 'success');
+    }
+}
+
+function addValidationIcon(parent, icon, type) {
+    // 移除现有图标
+    const existingIcon = parent.querySelector('.validation-icon');
+    if (existingIcon) {
+        existingIcon.remove();
+    }
+
+    // 添加新图标
+    const iconElement = document.createElement('i');
+    iconElement.className = `fas fa-${icon} validation-icon validation-${type}`;
+    parent.appendChild(iconElement);
+
+    // 动画效果
+    setTimeout(() => iconElement.classList.add('show'), 10);
+}
+
+// 导航栏现代化效果
+function initializeNavbarEffects() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > 50) {
+            navbar.classList.add('navbar-scrolled');
+        } else {
+            navbar.classList.remove('navbar-scrolled');
+        }
+
+        // 滚动方向检测
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            navbar.classList.add('navbar-hidden');
+        } else {
+            navbar.classList.remove('navbar-hidden');
+        }
+
+        lastScrollY = currentScrollY;
+    });
+}
+
+// 卡片悬浮效果
+function initializeCardEffects() {
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function () {
+            this.classList.add('card-elevated');
+
+            // 添加光晕效果
+            const glow = document.createElement('div');
+            glow.className = 'card-glow';
+            this.appendChild(glow);
+        });
+
+        card.addEventListener('mouseleave', function () {
+            this.classList.remove('card-elevated');
+
+            // 移除光晕效果
+            const glow = this.querySelector('.card-glow');
+            if (glow) {
+                glow.remove();
+            }
+        });
+
+        // 鼠标移动视差效果
+        card.addEventListener('mousemove', function (e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+
+            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+        });
+
+        card.addEventListener('mouseleave', function () {
+            this.style.transform = '';
+        });
+    });
+}
+
+// 自动保存系统
+function initializeAutoSave() {
+    let saveTimeout;
+    const saveDelay = 2000; // 2秒延迟保存
+
+    // 监听表单变化
+    document.addEventListener('input', function (e) {
+        if (e.target.matches('.form-control, .form-select')) {
+            clearTimeout(saveTimeout);
+
+            // 显示保存指示器
+            showSaveIndicator('saving');
+
+            saveTimeout = setTimeout(() => {
+                autoSaveData();
+                showSaveIndicator('saved');
+            }, saveDelay);
+        }
+    });
+}
+
+function autoSaveData() {
+    try {
+        // 保存当前表单数据
+        const formData = {
+            subject: document.getElementById('subject')?.value || '',
+            examDate: document.getElementById('exam-date')?.value || '',
+            totalScore: document.getElementById('total-score')?.value || '',
+            passingScore: document.getElementById('passing-score')?.value || '',
+            questions: getQuestionsConfig(),
+            timestamp: new Date().toISOString()
+        };
+
+        localStorage.setItem('zenink-autosave', JSON.stringify(formData));
+        console.log('数据已自动保存');
+
+    } catch (error) {
+        console.error('自动保存失败:', error);
+        showSaveIndicator('error');
+    }
+}
+
+function showSaveIndicator(status) {
+    let indicator = document.getElementById('save-indicator');
+
+    if (!indicator) {
+        indicator = document.createElement('div');
+        indicator.id = 'save-indicator';
+        indicator.className = 'save-indicator';
+        document.body.appendChild(indicator);
+    }
+
+    const icons = {
+        saving: 'fa-spinner fa-spin',
+        saved: 'fa-check',
+        error: 'fa-exclamation-triangle'
+    };
+
+    const messages = {
+        saving: '正在保存...',
+        saved: '已保存',
+        error: '保存失败'
+    };
+
+    const colors = {
+        saving: '#2563eb',
+        saved: '#10b981',
+        error: '#ef4444'
+    };
+
+    indicator.innerHTML = `
+        <i class="fas ${icons[status]}"></i>
+        <span>${messages[status]}</span>
+    `;
+
+    indicator.style.backgroundColor = colors[status];
+    indicator.classList.add('show');
+
+    if (status !== 'saving') {
+        setTimeout(() => {
+            indicator.classList.remove('show');
+        }, 2000);
+    }
+}
+
+// 快捷键系统
+function initializeKeyboardShortcuts() {
+    document.addEventListener('keydown', function (e) {
+        // Ctrl+S 保存
+        if (e.ctrlKey && e.key === 's') {
+            e.preventDefault();
+            saveCurrentData();
+            showNotification('数据已保存', 'success');
+        }
+
+        // Ctrl+N 新建
+        if (e.ctrlKey && e.key === 'n') {
+            e.preventDefault();
+            showSection('exam-config');
+            clearExamForm();
+        }
+
+        // Ctrl+E 导出
+        if (e.ctrlKey && e.key === 'e') {
+            e.preventDefault();
+            exportScores();
+        }
+
+        // F1 帮助
+        if (e.key === 'F1') {
+            e.preventDefault();
+            showHelp();
+        }
+
+        // Esc 关闭模态框
+        if (e.key === 'Escape') {
+            const modals = document.querySelectorAll('.modal.show');
+            modals.forEach(modal => {
+                const bsModal = bootstrap.Modal.getInstance(modal);
+                if (bsModal) bsModal.hide();
+            });
+        }
+    });
+}
+
+// 通知系统
+function initializeNotificationSystem() {
+    // 创建通知容器
+    if (!document.getElementById('notifications-container')) {
+        const container = document.createElement('div');
+        container.id = 'notifications-container';
+        container.className = 'notifications-container';
+        document.body.appendChild(container);
+    }
+}
+
+function showNotification(message, type = 'info', duration = 3000) {
+    const container = document.getElementById('notifications-container');
+    if (!container) return;
+
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-exclamation-circle',
+        warning: 'fa-exclamation-triangle',
+        info: 'fa-info-circle'
+    };
+
+    notification.innerHTML = `
+        <div class="notification-icon">
+            <i class="fas ${icons[type] || icons.info}"></i>
+        </div>
+        <div class="notification-content">
+            <div class="notification-message">${message}</div>
+        </div>
+        <button class="notification-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+
+    container.appendChild(notification);
+
+    // 显示动画
+    setTimeout(() => notification.classList.add('show'), 10);
+
+    // 自动隐藏
+    if (duration > 0) {
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.parentElement.removeChild(notification);
+                }
+            }, 300);
+        }, duration);
+    }
+}
+
+// 主题检测
+function initializeThemeDetection() {
+    // 检测系统主题偏好
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function updateTheme(e) {
+        if (e.matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+
+        // 更新图表主题
+        updateChartsTheme(e.matches ? 'dark' : 'light');
+    }
+
+    // 初始检测
+    updateTheme(mediaQuery);
+
+    // 监听变化
+    mediaQuery.addListener(updateTheme);
+}
+
+function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const newTheme = current === 'dark' ? 'light' : 'dark';
+
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('zenink-theme', newTheme);
+
+    // 添加切换动画
+    document.body.classList.add('theme-transition');
+    setTimeout(() => {
+        document.body.classList.remove('theme-transition');
+    }, 300);
+
+    showNotification(`已切换到${newTheme === 'dark' ? '深色' : '浅色'}主题`, 'success');
+
+    // 更新图表主题
+    updateChartsTheme(newTheme);
+}
+
+// 性能监控
+function initializePerformanceMonitoring() {
+    // 监控页面加载性能
+    window.addEventListener('load', function () {
+        setTimeout(() => {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+
+            console.log(`页面加载完成，耗时: ${loadTime.toFixed(2)}ms`);
+
+            // 如果加载时间过长，显示提示
+            if (loadTime > 3000) {
+                showNotification('页面加载较慢，建议检查网络连接', 'warning');
+            }
+        }, 100);
+    });
+
+    // 监控内存使用
+    if ('memory' in performance) {
+        setInterval(() => {
+            const memory = performance.memory;
+            const usedPercent = (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100;
+
+            if (usedPercent > 90) {
+                console.warn('内存使用率过高:', usedPercent.toFixed(2) + '%');
+                showNotification('系统内存使用率较高，建议刷新页面', 'warning');
+            }
+        }, 30000); // 每30秒检查一次
+    }
+}
+
+// 图表主题更新
+function updateChartsTheme(theme) {
+    // 如果有图表实例，更新其主题
+    if (window.examChart) {
+        const isDark = theme === 'dark';
+        const textColor = isDark ? '#f8fafc' : '#0f172a';
+        const gridColor = isDark ? '#334155' : '#e2e8f0';
+
+        window.examChart.options.scales.y.ticks.color = textColor;
+        window.examChart.options.scales.x.ticks.color = textColor;
+        window.examChart.options.scales.y.grid.color = gridColor;
+        window.examChart.options.scales.x.grid.color = gridColor;
+        window.examChart.options.plugins.legend.labels.color = textColor;
+
+        window.examChart.update();
+    }
+}
+
+// 清除表单
+function clearExamForm() {
+    const form = document.getElementById('exam-form');
+    if (form) {
+        form.reset();
+
+        // 清除动态生成的题目
+        const questionsContainer = document.getElementById('questions-container');
+        if (questionsContainer) {
+            questionsContainer.innerHTML = '';
+            questionCount = 0;
+        }
+
+        // 重置进度
+        updateConfigProgress();
+
+        showNotification('表单已清空', 'info');
+    }
+}
+
+// 保存当前数据
+function saveCurrentData() {
+    try {
+        const currentSection = document.querySelector('.section.active')?.id;
+
+        if (currentSection === 'exam-config') {
+            generateExam();
+        } else if (currentSection === 'scoring') {
+            saveScore();
+        }
+
+    } catch (error) {
+        console.error('保存失败:', error);
+        showNotification('保存失败: ' + error.message, 'error');
+    }
+}
+
+// 显示帮助
+function showHelp() {
+    window.open('help.html', '_blank');
+}
+
+// 现代化节流函数
+function modernThrottle(func, limit) {
+    let inThrottle;
+    return function () {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
+// 现代化防抖函数
+function modernDebounce(func, wait, immediate) {
+    let timeout;
+    return function () {
+        const context = this, args = arguments;
+        const later = function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        const callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+}
+
+// 现代化数据验证
+function validateFormData(data) {
+    const errors = [];
+
+    if (!data.subject || data.subject.trim().length < 2) {
+        errors.push('科目名称至少需要2个字符');
+    }
+
+    if (!data.examDate) {
+        errors.push('请选择考试日期');
+    }
+
+    if (!data.totalScore || data.totalScore <= 0) {
+        errors.push('总分必须大于0');
+    }
+
+    if (!data.questions || data.questions.length === 0) {
+        errors.push('至少需要添加一道题目');
+    }
+
+    return {
+        isValid: errors.length === 0,
+        errors: errors
+    };
+}
+
+// 现代化错误处理
+function handleError(error, context = '操作') {
+    console.error(`${context}失败:`, error);
+
+    const userMessage = error.message || '发生未知错误';
+    showNotification(`${context}失败: ${userMessage}`, 'error');
+
+    // 发送错误报告（如果需要）
+    if (window.errorReporting) {
+        window.errorReporting.report(error, context);
+    }
+}
+
+// 现代化成功处理
+function handleSuccess(message, data = null) {
+    showNotification(message, 'success');
+
+    if (data) {
+        console.log('操作成功:', data);
+    }
+
+    // 触发成功事件
+    document.dispatchEvent(new CustomEvent('zenink:success', {
+        detail: { message, data }
+    }));
+}
+
+// 现代化数据格式化
+function formatModernData(data) {
+    return {
+        ...data,
+        _id: generateId(),
+        _timestamp: new Date().toISOString(),
+        _version: '2.0',
+        _checksum: calculateChecksum(data)
+    };
+}
+
+function calculateChecksum(data) {
+    // 简单的校验和计算
+    const str = JSON.stringify(data);
+    let hash = 0;
+
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // 转换为32位整数
+    }
+
+    return Math.abs(hash).toString(16);
+}
+
+console.log('🚀 ZenInk 超现代化功能模块加载完成');
+
+// ==================== 打印报表功能 ====================
+
+let currentZoom = 1;
+
+// 显示打印报表模态框
+function showPrintReport() {
+    // 检查是否有题目配置
+    const questionsContainer = document.getElementById('questions-container');
+    if (!questionsContainer.children.length) {
+        showNotification('请先添加题目配置', 'warning');
+        return;
+    }
+
+    const modal = new bootstrap.Modal(document.getElementById('printReportModal'));
+    modal.show();
+
+    // 默认生成答题卡预览
+    setTimeout(() => {
+        generateReportPreview();
+    }, 300);
+}
+
+// 更新报表类型
+function updateReportType() {
+    const reportType = document.getElementById('report-type').value;
+    const answerSheetOptions = document.getElementById('answer-sheet-options');
+    const layoutOptions = document.getElementById('layout-options');
+
+    // 根据报表类型显示/隐藏相关选项
+    if (reportType === 'answer-sheet') {
+        answerSheetOptions.style.display = 'block';
+        layoutOptions.style.display = 'block';
+    } else {
+        answerSheetOptions.style.display = 'none';
+        layoutOptions.style.display = reportType === 'score-sheet' ? 'block' : 'none';
+    }
+
+    generateReportPreview();
+}
+
+// 生成报表预览
+function generateReportPreview() {
+    const reportType = document.getElementById('report-type').value;
+    const previewContainer = document.getElementById('print-preview');
+
+    let previewHTML = '';
+
+    switch (reportType) {
+        case 'answer-sheet':
+            previewHTML = generateAnswerSheetPreview();
+            break;
+        case 'score-sheet':
+            previewHTML = generateScoreSheetPreview();
+            break;
+        case 'question-analysis':
+            previewHTML = generateQuestionAnalysisPreview();
+            break;
+        case 'class-summary':
+            previewHTML = generateClassSummaryPreview();
+            break;
+    }
+
+    previewContainer.innerHTML = previewHTML;
+
+    // 应用缩放
+    const pages = previewContainer.querySelectorAll('.print-page');
+    pages.forEach(page => {
+        page.style.transform = `scale(${currentZoom})`;
+    });
+}
+
+// 生成答题卡预览
+function generateAnswerSheetPreview() {
+    const subject = document.getElementById('subject').value || '科目名称';
+    const examName = document.getElementById('exam-name').value || '考试名称';
+    const className = document.getElementById('class-name').value || '班级名称';
+    const includeHeader = document.getElementById('include-header').checked;
+    const includeStudentInfo = document.getElementById('include-student-info').checked;
+    const includeBarcode = document.getElementById('include-barcode').checked;
+    const questionsPerRow = parseInt(document.getElementById('questions-per-row').value) || 5;
+
+    // 收集所有题目信息
+    const questions = collectQuestionsData();
+
+    let html = `
+        <div class="print-page answer-sheet">
+            ${includeHeader ? `
+                <div class="sheet-header">
+                    <h2 class="exam-title">${examName}</h2>
+                    <div class="exam-info">
+                        <span>科目：${subject}</span>
+                        <span>班级：${className}</span>
+                        <span>满分：${calculateTotalScore()}分</span>
+                    </div>
+                </div>
+            ` : ''}
+            
+            ${includeStudentInfo ? `
+                <div class="student-info-section">
+                    <div class="info-row">
+                        <span>姓名：___________________</span>
+                        <span>学号：___________________</span>
+                        <span>考号：___________________</span>
+                    </div>
+                    ${includeBarcode ? '<div class="barcode-area"><div class="barcode-placeholder">||||||||||||||||||||||||</div></div>' : ''}
+                </div>
+            ` : ''}
+            
+            <div class="answer-sections">
+                ${generateAnswerSections(questions, questionsPerRow)}
+            </div>
+            
+            <div class="sheet-footer">
+                <div class="attention-note">
+                    <strong>注意事项：</strong><br>
+                    1. 答题前请仔细阅读各题要求，在规定的答题区域内作答。<br>
+                    2. 选择题请用2B铅笔填涂，填空题和解答题请用黑色签字笔书写。<br>
+                    3. 保持答题卡清洁，不要折叠、污损。
+                </div>
+            </div>
+        </div>
+    `;
+
+    return html;
+}
+
+// 生成答题区域
+function generateAnswerSections(questions, questionsPerRow) {
+    let html = '';
+    let questionNum = 1;
+
+    questions.forEach(question => {
+        const { type, count, description, startNum } = question;
+
+        html += `<div class="question-section">`;
+        html += `<div class="section-title">${getQuestionTypeTitle(type)}（${description || ''}）</div>`;
+
+        if (type === 'choice' || type === 'multiple') {
+            // 选择题答题区域
+            html += `<div class="choice-answer-area">`;
+            for (let i = 0; i < count; i++) {
+                if (i % questionsPerRow === 0) {
+                    html += `<div class="choice-row">`;
+                }
+
+                const currentNum = startNum + i;
+                html += `
+                    <div class="choice-item">
+                        <span class="question-num">${currentNum}</span>
+                        <div class="choice-options">
+                            <div class="choice-option"><span>A</span></div>
+                            <div class="choice-option"><span>B</span></div>
+                            <div class="choice-option"><span>C</span></div>
+                            <div class="choice-option"><span>D</span></div>
+                        </div>
+                    </div>
+                `;
+
+                if ((i + 1) % questionsPerRow === 0 || i === count - 1) {
+                    html += `</div>`;
+                }
+            }
+            html += `</div>`;
+        } else if (type === 'blank') {
+            // 填空题答题区域
+            html += `<div class="blank-answer-area">`;
+            for (let i = 0; i < count; i++) {
+                const currentNum = startNum + i;
+                html += `
+                    <div class="blank-item">
+                        <span class="question-num">${currentNum}.</span>
+                        <div class="blank-lines">
+                            <div class="blank-line"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            html += `</div>`;
+        } else {
+            // 解答题答题区域
+            html += `<div class="essay-answer-area">`;
+            for (let i = 0; i < count; i++) {
+                const currentNum = startNum + i;
+                html += `
+                    <div class="essay-item">
+                        <div class="essay-header">
+                            <span class="question-num">${currentNum}.</span>
+                            <span class="score-box">（${question.score}分）</span>
+                        </div>
+                        <div class="essay-lines">
+                            ${generateEssayLines(8)}
+                        </div>
+                    </div>
+                `;
+            }
+            html += `</div>`;
+        }
+
+        html += `</div>`;
+        questionNum += count;
+    });
+
+    return html;
+}
+
+// 生成解答题线条
+function generateEssayLines(lineCount) {
+    let lines = '';
+    for (let i = 0; i < lineCount; i++) {
+        lines += '<div class="essay-line"></div>';
+    }
+    return lines;
+}
+
+// 生成成绩统计表预览
+function generateScoreSheetPreview() {
+    const subject = document.getElementById('subject').value || '科目名称';
+    const examName = document.getElementById('exam-name').value || '考试名称';
+    const className = document.getElementById('class-name').value || '班级名称';
+    const questions = collectQuestionsData();
+
+    return `
+        <div class="print-page score-sheet">
+            <div class="sheet-header">
+                <h2>${examName} - ${subject}成绩统计表</h2>
+                <div class="class-info">班级：${className}</div>
+            </div>
+            
+            <table class="score-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">序号</th>
+                        <th rowspan="2">姓名</th>
+                        <th rowspan="2">学号</th>
+                        ${questions.map((q, index) => `<th colspan="${q.count}">${getQuestionTypeTitle(q.type)}</th>`).join('')}
+                        <th rowspan="2">总分</th>
+                        <th rowspan="2">排名</th>
+                    </tr>
+                    <tr>
+                        ${questions.map(q => {
+        let cells = '';
+        for (let i = 0; i < q.count; i++) {
+            cells += `<th>${q.startNum + i}</th>`;
+        }
+        return cells;
+    }).join('')}
+                    </tr>
+                </thead>
+                <tbody>
+                    ${generateScoreTableRows(30)}
+                </tbody>
+            </table>
+            
+            <div class="score-statistics">
+                <h4>成绩统计</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <label>最高分：</label>
+                        <span>___分</span>
+                    </div>
+                    <div class="stat-item">
+                        <label>最低分：</label>
+                        <span>___分</span>
+                    </div>
+                    <div class="stat-item">
+                        <label>平均分：</label>
+                        <span>___分</span>
+                    </div>
+                    <div class="stat-item">
+                        <label>及格率：</label>
+                        <span>___%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// 生成成绩表行
+function generateScoreTableRows(studentCount) {
+    let rows = '';
+    for (let i = 1; i <= studentCount; i++) {
+        const questions = collectQuestionsData();
+        const totalQuestions = questions.reduce((sum, q) => sum + q.count, 0);
+
+        rows += `
+            <tr>
+                <td>${i}</td>
+                <td>学生${i}</td>
+                <td>2024${String(i).padStart(3, '0')}</td>
+                ${Array(totalQuestions).fill('<td></td>').join('')}
+                <td></td>
+                <td></td>
+            </tr>
+        `;
+    }
+    return rows;
+}
+
+// 生成题目分析报表预览
+function generateQuestionAnalysisPreview() {
+    const questions = collectQuestionsData();
+
+    return `
+        <div class="print-page analysis-sheet">
+            <div class="sheet-header">
+                <h2>题目分析报表</h2>
+            </div>
+            
+            <div class="analysis-content">
+                ${questions.map((question, index) => `
+                    <div class="question-analysis">
+                        <h4>${getQuestionTypeTitle(question.type)} (${question.startNum}-${question.startNum + question.count - 1}题)</h4>
+                        <div class="analysis-stats">
+                            <div class="stat-grid">
+                                <div class="stat-item">
+                                    <label>题目数量：</label>
+                                    <span>${question.count}题</span>
+                                </div>
+                                <div class="stat-item">
+                                    <label>单题分值：</label>
+                                    <span>${question.score}分</span>
+                                </div>
+                                <div class="stat-item">
+                                    <label>总分值：</label>
+                                    <span>${question.count * question.score}分</span>
+                                </div>
+                                <div class="stat-item">
+                                    <label>正确率：</label>
+                                    <span>__%</span>
+                                </div>
+                            </div>
+                        </div>
+                        ${question.type === 'choice' || question.type === 'multiple' ? `
+                            <div class="choice-analysis">
+                                <h5>选项分析</h5>
+                                <table class="choice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>题号</th>
+                                            <th>A选项</th>
+                                            <th>B选项</th>
+                                            <th>C选项</th>
+                                            <th>D选项</th>
+                                            <th>正确率</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${Array(Math.min(question.count, 10)).fill(0).map((_, i) => `
+                                            <tr>
+                                                <td>${question.startNum + i}</td>
+                                                <td>__%</td>
+                                                <td>__%</td>
+                                                <td>__%</td>
+                                                <td>__%</td>
+                                                <td>__%</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+// 生成班级汇总报表预览
+function generateClassSummaryPreview() {
+    const subject = document.getElementById('subject').value || '科目名称';
+    const examName = document.getElementById('exam-name').value || '考试名称';
+    const totalScore = calculateTotalScore();
+
+    return `
+        <div class="print-page summary-sheet">
+            <div class="sheet-header">
+                <h2>${examName} - ${subject}班级汇总报表</h2>
+            </div>
+            
+            <div class="summary-overview">
+                <div class="overview-stats">
+                    <div class="stat-card">
+                        <h4>总体情况</h4>
+                        <div class="stat-list">
+                            <div class="stat-row">
+                                <span>考试科目：</span>
+                                <span>${subject}</span>
+                            </div>
+                            <div class="stat-row">
+                                <span>满分分值：</span>
+                                <span>${totalScore}分</span>
+                            </div>
+                            <div class="stat-row">
+                                <span>参考人数：</span>
+                                <span>___人</span>
+                            </div>
+                            <div class="stat-row">
+                                <span>实考人数：</span>
+                                <span>___人</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h4>成绩分布</h4>
+                        <div class="score-distribution">
+                            <div class="score-range">
+                                <span>90-100分：</span>
+                                <span>___人 (____%)</span>
+                            </div>
+                            <div class="score-range">
+                                <span>80-89分：</span>
+                                <span>___人 (____%)</span>
+                            </div>
+                            <div class="score-range">
+                                <span>70-79分：</span>
+                                <span>___人 (____%)</span>
+                            </div>
+                            <div class="score-range">
+                                <span>60-69分：</span>
+                                <span>___人 (____%)</span>
+                            </div>
+                            <div class="score-range">
+                                <span>60分以下：</span>
+                                <span>___人 (____%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="top-students">
+                <h4>优秀学生</h4>
+                <table class="top-table">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>姓名</th>
+                            <th>学号</th>
+                            <th>得分</th>
+                            <th>得分率</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Array(10).fill(0).map((_, i) => `
+                            <tr>
+                                <td>${i + 1}</td>
+                                <td>学生${i + 1}</td>
+                                <td>2024${String(i + 1).padStart(3, '0')}</td>
+                                <td>___分</td>
+                                <td>____%</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+}
+
+// 收集题目数据
+function collectQuestionsData() {
+    const questions = [];
+    const questionCards = document.querySelectorAll('.question-card');
+
+    questionCards.forEach(card => {
+        const type = card.querySelector('.question-type').value;
+        const count = parseInt(card.querySelector('.question-count').value) || 1;
+        const score = parseFloat(card.querySelector('.question-score').value) || 0;
+        const description = card.querySelector('.question-desc').value.trim();
+        const startNum = parseInt(card.querySelector('.question-start').value) || 1;
+
+        questions.push({
+            type,
+            count,
+            score,
+            description,
+            startNum
+        });
+    });
+
+    return questions;
+}
+
+// 获取题目类型标题
+function getQuestionTypeTitle(type) {
+    const typeNames = {
+        'choice': '选择题',
+        'multiple': '多选题',
+        'blank': '填空题',
+        'short': '简答题',
+        'essay': '解答题'
+    };
+    return typeNames[type] || '题目';
+}
+
+// 计算总分
+function calculateTotalScore() {
+    const questions = collectQuestionsData();
+    return questions.reduce((total, q) => total + (q.count * q.score), 0);
+}
+
+// 缩放功能
+function zoomReport(delta) {
+    currentZoom = Math.max(0.3, Math.min(2, currentZoom + delta));
+    document.getElementById('zoom-level').textContent = Math.round(currentZoom * 100) + '%';
+
+    const pages = document.querySelectorAll('.print-page');
+    pages.forEach(page => {
+        page.style.transform = `scale(${currentZoom})`;
+    });
+}
+
+function resetZoom() {
+    currentZoom = 1;
+    document.getElementById('zoom-level').textContent = '100%';
+
+    const pages = document.querySelectorAll('.print-page');
+    pages.forEach(page => {
+        page.style.transform = 'scale(1)';
+    });
+}
+
+// 打印报表
+function printReport() {
+    const printContent = document.getElementById('print-preview').innerHTML;
+    const originalContent = document.body.innerHTML;
+
+    // 创建打印样式
+    const printStyles = `
+        <style>
+            @media print {
+                body { margin: 0; padding: 0; }
+                .print-page { page-break-after: always; margin: 0; transform: none !important; }
+                .print-page:last-child { page-break-after: auto; }
+            }
+        </style>
+    `;
+
+    document.body.innerHTML = printStyles + printContent;
+    window.print();
+    document.body.innerHTML = originalContent;
+
+    // 重新初始化
+    location.reload();
+}
+
+// 导出PDF (需要jsPDF库)
+function downloadPDF() {
+    showNotification('PDF导出功能开发中...', 'info');
+    // TODO: 实现PDF导出功能
+}
+
+// 导出配置
+function exportConfig() {
+    const config = {
+        examInfo: {
+            subject: document.getElementById('subject').value,
+            examName: document.getElementById('exam-name').value,
+            totalScore: document.getElementById('total-score').value,
+            className: document.getElementById('class-name').value
+        },
+        questions: collectQuestionsData(),
+        timestamp: new Date().toISOString()
+    };
+
+    const dataStr = JSON.stringify(config, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = `exam_config_${config.examInfo.subject}_${new Date().getTime()}.json`;
+    link.click();
+
+    showNotification('配置已导出', 'success');
+}
+
+// 填充所有答案
+function fillAllAnswers(answer) {
+    const selects = document.querySelectorAll('.answer-select');
+    selects.forEach(select => {
+        select.value = answer;
+    });
+}
+
+// 随机填充所有答案
+function randomizeAllAnswers() {
+    const options = ['A', 'B', 'C', 'D'];
+    const selects = document.querySelectorAll('.answer-select');
+    selects.forEach(select => {
+        const randomIndex = Math.floor(Math.random() * options.length);
+        select.value = options[randomIndex];
+    });
+}
+
+// 保存详细答案
+function saveDetailedAnswers() {
+    const modal = document.querySelector('.modal.show');
+    const questionCardId = modal.getAttribute('data-question-card');
+    const questionCard = document.querySelector(`[data-question-id="${questionCardId}"]`);
+
+    if (!questionCard) return;
+
+    const selects = modal.querySelectorAll('.answer-select');
+    const answers = Array.from(selects).map(select => select.value);
+
+    // 存储答案数据
+    questionCard.setAttribute('data-answers', JSON.stringify(answers));
+
+    // 更新预览
+    const answerPreview = questionCard.querySelector('.answer-preview small');
+    const preview = answers.slice(0, 10).join(' ') + (answers.length > 10 ? '...' : '');
+    answerPreview.textContent = `答案预览：${preview}`;
+
+    // 关闭模态框
+    const bsModal = bootstrap.Modal.getInstance(modal);
+    bsModal.hide();
+
+    showNotification(`已保存${answers.length}题详细答案`, 'success');
+}
+
+// 加载演示配置
+function loadDemoConfig() {
+    // 填写基本信息
+    document.getElementById('subject').value = '数学';
+    document.getElementById('exam-name').value = '期末考试';
+    document.getElementById('total-score').value = '100';
+    document.getElementById('class-name').value = '高一(1)班';
+
+    // 清空现有题目
+    document.getElementById('questions-container').innerHTML = '';
+    questionCount = 0;
+
+    // 添加演示题目
+    setTimeout(() => {
+        // 选择题
+        addQuestion();
+        const choiceCard = document.querySelector('.question-card:last-child');
+        choiceCard.querySelector('.question-type').value = 'choice';
+        choiceCard.querySelector('.question-count').value = '10';
+        choiceCard.querySelector('.question-score').value = '3';
+        choiceCard.querySelector('.question-desc').value = '单项选择题';
+        choiceCard.querySelector('.question-start').value = '1';
+        updateQuestionType(choiceCard.querySelector('.question-type'));
+        updateQuestionPreview(choiceCard);
+
+        // 填空题
+        addQuestion();
+        const blankCard = document.querySelector('.question-card:last-child');
+        blankCard.querySelector('.question-type').value = 'blank';
+        blankCard.querySelector('.question-count').value = '5';
+        blankCard.querySelector('.question-score').value = '4';
+        blankCard.querySelector('.question-desc').value = '填空题';
+        blankCard.querySelector('.question-start').value = '11';
+        updateQuestionType(blankCard.querySelector('.question-type'));
+        updateQuestionPreview(blankCard);
+
+        // 解答题
+        addQuestion();
+        const essayCard = document.querySelector('.question-card:last-child');
+        essayCard.querySelector('.question-type').value = 'essay';
+        essayCard.querySelector('.question-count').value = '3';
+        essayCard.querySelector('.question-score').value = '20';
+        essayCard.querySelector('.question-desc').value = '解答题';
+        essayCard.querySelector('.question-start').value = '16';
+        updateQuestionType(essayCard.querySelector('.question-type'));
+        updateQuestionPreview(essayCard);
+
+        updatePreview();
+        showNotification('演示配置已加载！包含选择题、填空题和解答题，可以测试折叠功能和打印报表', 'success');
+    }, 100);
+}
+
+console.log('📄 打印报表功能模块加载完成');
