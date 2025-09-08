@@ -224,6 +224,14 @@ function showLoadingOverlay(message = '加载中...') {
 }
 
 function hideLoadingOverlay() {
+    // 隐藏页面加载器
+    const pageLoader = document.getElementById('page-loader');
+    if (pageLoader) {
+        pageLoader.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+    
+    // 兼容旧的加载遮罩
     const overlay = document.getElementById('loading-overlay');
     if (overlay) {
         overlay.classList.remove('show');
@@ -3325,6 +3333,14 @@ function showLoadingOverlay() {
 }
 
 function hideLoadingOverlay() {
+    // 隐藏页面加载器
+    const pageLoader = document.getElementById('page-loader');
+    if (pageLoader) {
+        pageLoader.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+    
+    // 隐藏现代化加载遮罩
     const overlay = document.getElementById('modern-loading-overlay');
     if (overlay) {
         overlay.classList.add('fade-out');
