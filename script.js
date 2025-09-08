@@ -15,39 +15,122 @@ document.addEventListener('DOMContentLoaded', function () {
     if (questionCount === 0) {
         addQuestion();
     }
+    
+    // 初始化UI增强效果
+    initializeUIEnhancements();
 });
+
+// UI增强效果初始化
+function initializeUIEnhancements() {
+    // 添加页面加载动画
+    document.body.classList.add('fade-in');
+    
+    // 为所有按钮添加点击效果
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn')) {
+            addClickEffect(e.target);
+        }
+    });
+    
+    // 为表单输入添加焦点效果
+    const inputs = document.querySelectorAll('.form-control, .form-select');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.classList.add('input-focused');
+        });
+        
+        input.addEventListener('blur', function() {
+            this.parentElement.classList.remove('input-focused');
+        });
+    });
+    
+    // 初始化进度条
+    updateConfigProgress();
+}
+
+// 按钮点击效果
+function addClickEffect(button) {
+    button.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+        button.style.transform = '';
+    }, 150);
+}
+
+// 更新配置进度
+function updateConfigProgress() {
+    const form = document.getElementById('exam-form');
+    const totalFields = form.querySelectorAll('input, select').length;
+    const filledFields = Array.from(form.querySelectorAll('input, select'))
+        .filter(field => field.value.trim() !== '').length;
+    
+    const progress = totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
+    
+    const progressBar = document.getElementById('config-progress-bar');
+    const progressBadge = document.getElementById('config-progress');
+    
+    if (progressBar && progressBadge) {
+        progressBar.style.width = `${progress}%`;
+        progressBadge.textContent = `${progress}%`;
+        
+        // 根据进度改变颜色
+        if (progress < 30) {
+            progressBadge.className = 'badge bg-danger';
+        } else if (progress < 70) {
+            progressBadge.className = 'badge bg-warning';
+        } else {
+            progressBadge.className = 'badge bg-success';
+        }
+    }
+}
 
 // 显示指定区域
 function showSection(sectionName) {
     // 隐藏所有区域
     const sections = document.querySelectorAll('.section');
-    sections.forEach(section => section.classList.remove('active'));
+    sections.forEach(section => {
+        section.classList.remove('active');
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+    });
 
-    // 显示指定区域
-    document.getElementById(sectionName).classList.add('active');
+    // 显示指定区域（带动画效果）
+    setTimeout(() => {
+        const targetSection = document.getElementById(sectionName);
+        targetSection.classList.add('active');
+        targetSection.style.opacity = '1';
+        targetSection.style.transform = 'translateY(0)';
+    }, 150);
 
     // 更新导航栏
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => link.classList.remove('active'));
-    event.target.classList.add('active');
+    
+    // 找到对应的导航链接
+    const activeLink = Array.from(navLinks).find(link => 
+        link.getAttribute('onclick')?.includes(sectionName)
+    );
+    if (activeLink) {
+        activeLink.classList.add('active');
+    }
 
     // 根据区域执行相应初始化
-    switch (sectionName) {
-        case 'exam-config':
-            // 确保模板已加载到编辑表单
-            setTimeout(() => {
+    setTimeout(() => {
+        switch (sectionName) {
+            case 'exam-config':
+                // 确保模板已加载到编辑表单
                 if (currentExam && currentExam.questions) {
                     loadExamToEditForm();
                 }
-            }, 100);
-            break;
-        case 'scoring':
-            initScoringSection();
-            break;
-        case 'statistics':
-            updateStatistics();
-            break;
-    }
+                updateConfigProgress();
+                break;
+            case 'scoring':
+                initScoringSection();
+                break;
+            case 'statistics':
+                updateStatistics();
+                break;
+        }
+    }, 200);
 }
 
 // 添加题目

@@ -11,25 +11,36 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap"></i> 智能登分系统</a>
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-graduation-cap me-2"></i>
+                ZenInk 智能阅卷
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" onclick="showSection('exam-config')">试卷配置</a>
+                        <a class="nav-link active" href="#" onclick="showSection('exam-config')">
+                            <i class="fas fa-cogs me-1"></i> 试卷配置
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="showSection('scoring')">登分</a>
+                        <a class="nav-link" href="#" onclick="showSection('scoring')">
+                            <i class="fas fa-pen-alt me-1"></i> 智能登分
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="showSection('statistics')">统计</a>
+                        <a class="nav-link" href="#" onclick="showSection('statistics')">
+                            <i class="fas fa-chart-bar me-1"></i> 数据统计
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="help.html" target="_blank">帮助</a>
+                        <a class="nav-link" href="help.html" target="_blank">
+                            <i class="fas fa-question-circle me-1"></i> 帮助
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -42,12 +53,24 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card">
-                        <div class="card-header">
-                            <h4><i class="fas fa-cog"></i> 试卷结构配置</h4>
+                        <div class="card-header d-flex align-items-center">
+                            <i class="fas fa-clipboard-list text-primary me-2"></i>
+                            <h4 class="mb-0">试卷结构配置</h4>
                         </div>
                         <div class="card-body">
+                            <!-- 进度指示器 -->
+                            <div class="progress-container">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-medium">配置进度</span>
+                                    <span class="badge bg-primary" id="config-progress">0%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" id="config-progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
                             <form id="exam-form">
-                                <div class="row mb-3">
+                                <div class="row mb-4">
                                     <div class="col-md-6">
                                         <label class="form-label">科目名称</label>
                                         <input type="text" class="form-control" id="subject" placeholder="例：数学"
