@@ -230,7 +230,7 @@ function hideLoadingOverlay() {
         pageLoader.classList.add('hidden');
         document.body.style.overflow = '';
     }
-    
+
     // 兼容旧的加载遮罩
     const overlay = document.getElementById('loading-overlay');
     if (overlay) {
@@ -500,12 +500,12 @@ function addQuestion() {
     questionCard.innerHTML = `
         <div class="question-header" onclick="toggleQuestionCard(this)">
             <div class="d-flex align-items-center">
-                <div class="question-number">${questionCount}</div>
+                <div class="question-number" aria-label="题号">${questionCount}</div>
                 <div class="question-title">
                     <span class="fw-bold">第${questionCount}题</span>
                     <small class="question-summary text-muted"></small>
                 </div>
-                <div class="question-toggle-icon">
+                <div class="question-toggle-icon ms-auto">
                     <i class="fas fa-chevron-down"></i>
                 </div>
             </div>
@@ -3339,7 +3339,7 @@ function hideLoadingOverlay() {
         pageLoader.classList.add('hidden');
         document.body.style.overflow = '';
     }
-    
+
     // 隐藏现代化加载遮罩
     const overlay = document.getElementById('modern-loading-overlay');
     if (overlay) {

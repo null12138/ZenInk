@@ -26,6 +26,9 @@
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <!-- 浏览器功能检测 -->
+    <script src="js/browser-detect.js"></script>
 </head>
 
 <body class="modern-body">
@@ -1168,9 +1171,19 @@
             }
         </script>
 
+        <!-- 核心脚本 -->
         <script src="script.js"></script>
         <script src="database.js"></script>
         <script src="demo.js"></script>
+
+        <!-- 现代化模块化脚本 (按需加载) -->
+        <script>
+            // 检测浏览器是否支持模块化
+            if (window.isModernBrowser) {
+                // 加载新版模块化脚本
+                document.write('<script src="js/app.js"><\/script>');
+            }
+        </script>
 </body>
 
 </html>
