@@ -1356,17 +1356,19 @@ function generateDetailedScoring(question, qIndex) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label small">总分：</label>
-                        <input type="number" class="form-control score-input" 
-                               id="q${qIndex}_0" 
-                               max="${question.score}" 
-                               min="0" 
-                               step="0.5"
-                               placeholder="${question.score}"
-                               onchange="calculateTotal()"
-                               onkeyup="calculateTotal()">
-                    </div>
+                        <div class="col-md-4">
+                            <label class="form-label small">总分：</label>
+                            <div class="score-control">
+                                <input type="range" class="form-range score-range" 
+                                       id="range_q${qIndex}_0" 
+                                       min="0" max="${question.score}" step="0.5" value="0"
+                                       oninput="onScoreRangeInput(this, 'q${qIndex}_0')" 
+                                       onchange="onScoreRangeChange(this, 'q${qIndex}_0')">
+                                <div class="score-steps" data-max="${question.score}"></div>
+                                <div class="score-value"><span id="display_q${qIndex}_0">0</span>/<span>${question.score}</span></div>
+                                <input type="hidden" class="score-input" id="q${qIndex}_0" value="0">
+                            </div>
+                        </div>
                 </div>
             </div>
         `;
@@ -1402,14 +1404,16 @@ function generateDetailedScoring(question, qIndex) {
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" class="form-control score-input" 
-                                   id="${subQuestionId}" 
-                                   max="${question.score}" 
-                                   min="0" 
-                                   step="0.5"
-                                   placeholder="${question.score}"
-                                   onchange="calculateTotal()"
-                                   onkeyup="calculateTotal()">
+                            <div class="score-control">
+                                <input type="range" class="form-range score-range" 
+                                       id="range_${subQuestionId}" 
+                                       min="0" max="${question.score}" step="0.5" value="0"
+                                       oninput="onScoreRangeInput(this, '${subQuestionId}')" 
+                                       onchange="onScoreRangeChange(this, '${subQuestionId}')">
+                                <div class="score-steps" data-max="${question.score}"></div>
+                                <div class="score-value"><span id="display_${subQuestionId}">0</span>/<span>${question.score}</span></div>
+                                <input type="hidden" class="score-input" id="${subQuestionId}" value="0">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1428,16 +1432,17 @@ function generateNormalScoring(question, qIndex) {
     for (let i = 0; i < question.count; i++) {
         const subQuestionId = `q${qIndex}_${i}`;
         html += `
-            <div class="col-md-2 col-sm-3 col-4 mb-2">
+                <div class="col-md-2 col-sm-3 col-4 mb-2">
                 <label class="form-label small">${question.count > 1 ? `(${i + 1})` : '得分'}</label>
-                <input type="number" class="form-control score-input" 
-                       id="${subQuestionId}" 
-                       max="${question.score}" 
-                       min="0" 
-                       step="0.5"
-                       placeholder="${question.score}"
-                       onchange="calculateTotal()"
-                       onkeyup="calculateTotal()">
+                <div class="score-control compact">
+                    <input type="range" class="form-range score-range" 
+                           id="range_${subQuestionId}"
+                           min="0" max="${question.score}" step="0.5" value="0"
+                           oninput="onScoreRangeInput(this, '${subQuestionId}')" 
+                           onchange="onScoreRangeChange(this, '${subQuestionId}')">
+                    <div class="score-value"><span id="display_${subQuestionId}">0</span>/<span>${question.score}</span></div>
+                    <input type="hidden" class="score-input" id="${subQuestionId}" value="0">
+                </div>
             </div>
         `;
     }
@@ -1459,6 +1464,65 @@ function calculateTotal() {
     });
 
     document.getElementById('current-total').textContent = total.toFixed(1);
+}
+
+// 滑动条输入显示实时值（同步到隐藏的score-input）
+function onScoreRangeInput(rangeEl, hiddenId) {
+    const val = parseFloat(rangeEl.value) || 0;
+    const display = document.getElementById('display_' + hiddenId);
+    if (display) display.textContent = val.toFixed(1);
+}
+
+// 滑动条变更完成后同步隐藏输入并重新计算总分
+function onScoreRangeChange(rangeEl, hiddenId) {
+    const val = parseFloat(rangeEl.value) || 0;
+    const hidden = document.getElementById(hiddenId);
+    if (hidden) {
+        hidden.value = val;
+    } else {
+        // 若隐藏输入不存在，则创建一个
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.className = 'score-input';
+        input.id = hiddenId;
+        input.value = val;
+        rangeEl.parentElement.appendChild(input);
+    }
+    calculateTotal();
+}
+
+// 初始化所有滑动条（在渲染题目后调用）
+function initializeScoreRanges() {
+    document.querySelectorAll('.score-range').forEach(rangeEl => {
+        const id = rangeEl.id.replace(/^range_/, '');
+        const hidden = document.getElementById(id);
+        if (hidden) {
+            // 如果hidden已有值，设置range和显示
+            const hv = parseFloat(hidden.value) || 0;
+            rangeEl.value = hv;
+            const display = document.getElementById('display_' + id);
+            if (display) display.textContent = hv.toFixed(1);
+        } else {
+            // 初始化显示为0
+            const display = document.getElementById('display_' + id);
+            if (display) display.textContent = '0';
+        }
+        
+        // 创建 steps 可视化（离散段落感）
+        const stepsContainer = rangeEl.parentElement.querySelector('.score-steps');
+        if (stepsContainer) {
+            const max = parseFloat(stepsContainer.getAttribute('data-max')) || parseFloat(rangeEl.max) || 10;
+            const step = parseFloat(rangeEl.step) || 1;
+            const segments = Math.round(max / step);
+            stepsContainer.innerHTML = '';
+            for (let i = 0; i <= segments; i++) {
+                const seg = document.createElement('span');
+                seg.className = 'score-step';
+                if (i % Math.max(1, Math.round(segments / 4)) === 0) seg.classList.add('major');
+                stepsContainer.appendChild(seg);
+            }
+        }
+    });
 }
 
 // 保存成绩
